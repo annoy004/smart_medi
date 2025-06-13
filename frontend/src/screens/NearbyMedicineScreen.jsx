@@ -22,6 +22,8 @@ const NearbyMedicineScreen = () => {
     { skip: coords.lat == null || !medicine }
   );
 
+
+  
   // get geolocation once
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
