@@ -6,6 +6,7 @@ import productRoutes from './routes/productRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
+import pharmacyRoutes from './routes/PharmacyRoutes.js';
 import ocrRoutes from './routes/ocrRoutes.js'
 
 
@@ -37,6 +38,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/ocr',ocrRoutes);
+app.use('/api/pharmacies', pharmacyRoutes);
 
 
 // PayPal Config Route
