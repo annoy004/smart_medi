@@ -25,18 +25,13 @@ const MapComponent = () => {
   useEffect(() => {
     if (map.current) return;
 
+    // Create the map first
     map.current = new maplibregl.Map({
       container: mapContainer.current,
-      style: 'https://demotiles.maplibre.org/style.json',
+      style: 'https://api.maptiler.com/maps/satellite/style.json?key=6nj3a1BhW60gpVKTytFV',
       center: [72.8777, 19.0760],
       zoom: 13,
     });
-
-    // Add your location marker
-    new maplibregl.Marker({ color: 'blue' })
-      .setLngLat([72.8777, 19.0760])
-      .setPopup(new maplibregl.Popup().setText('You are here'))
-      .addTo(map.current);
 
     // Add pharmacy markers
     pharmacies.forEach((p) => {
@@ -45,6 +40,31 @@ const MapComponent = () => {
         .setPopup(new maplibregl.Popup().setText(p.name))
         .addTo(map.current);
     });
+
+    // Get user's current location and center the map
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        ({ coords: { latitude, longitude } }) => {
+          // Center map on user location
+          map.current.setCenter([longitude, latitude]);
+
+          // Add user location marker
+          new maplibregl.Marker({ color: 'blue' })
+            .setLngLat([longitude, latitude])
+            .setPopup(new maplibregl.Popup().setText('Your Location'))
+            .addTo(map.current);
+        },
+        (err) => {
+          console.error('Geolocation error:', err);
+        }, {
+    enableHighAccuracy: true,   // ✅ use this
+    timeout: 10000,             // optional: max wait time 10s
+    maximumAge: 0,              // don't use cached position
+  }
+      );
+    } else {
+      console.error('Geolocation not supported by this browser.');
+    }
   }, []);
 
   return (
