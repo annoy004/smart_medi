@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import 'maplibre-gl/dist/maplibre-gl.css';
+
+
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -14,7 +17,6 @@ import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import PrivateRoute from './components/PrivateRoute';
-import AdminRoute from './components/AdminRoute';
 import HomeScreen from './screens/HomeScreen';
 import MyScreen from './screens/MyScreen';
 import CartScreen from './screens/CartScreen';
@@ -23,10 +25,10 @@ import RegisterScreen from './screens/RegisterScreen';
 import ShippingScreen from './screens/ShippingScreen';
 import PaymentScreen from './screens/PaymentScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
-import NearbyMedicineScreen from './screens/NearbyMedicineScreen';
 import OrderScreen from './screens/OrderScreen';
 import { ProfileScreen } from './screens/ProfileScreen';
 import UploadPrescriptionScreen from './screens/uploadPrescriptionScreen';
+import NearbyMedicines from './screens/NearbyMedicineScreen'
 
 
 const router = createBrowserRouter(
@@ -38,7 +40,8 @@ const router = createBrowserRouter(
       <Route path="/cart" element={<CartScreen />} />
       <Route path="/login" element={<LoginScreen />} />
       <Route path="/register" element={<RegisterScreen />} />
-      <Route path="/nearby" element={< NearbyMedicineScreen/>} />
+      <Route path="/map" element={<NearbyMedicines />} />
+
 
       <Route path="" element={<PrivateRoute />}>
         <Route path="/shipping" element={<ShippingScreen />} />
